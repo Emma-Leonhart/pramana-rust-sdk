@@ -23,6 +23,9 @@ pub enum PramanaError {
 
     #[error("overflow: {0}")]
     Overflow(String),
+
+    #[error("cannot reassign a PramanaObject ID once it has been set")]
+    IdAlreadyAssigned,
 }
 
 pub type PramanaResult<T> = Result<T, PramanaError>;

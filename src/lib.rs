@@ -1,7 +1,7 @@
 //! # Pramana SDK
 //!
 //! Exact Gaussian rational arithmetic and deterministic UUID v5 identity
-//! for the [Pramana knowledge graph](https://pramana-data.ca).
+//! for the [Pramana knowledge graph](https://pramana.dev).
 //!
 //! ## Core types
 //!
@@ -28,6 +28,11 @@ pub mod gauss;
 pub mod gint;
 pub mod number_theory;
 pub mod pramana_id;
+pub mod pramana_interface;
+pub mod pramana_linkable;
+pub mod pramana_object;
+pub mod pramana_particular;
+pub mod pramana_role;
 
 // Re-export main types at crate root.
 pub use error::{PramanaError, PramanaResult};
@@ -35,6 +40,11 @@ pub use gauss::Gauss;
 pub use gint::Gint;
 pub use number_theory::is_prime;
 pub use pramana_id::PRAMANA_NAMESPACE;
+pub use pramana_interface::PramanaInterfaceTrait;
+pub use pramana_linkable::PramanaLinkable;
+pub use pramana_object::PramanaObject;
+pub use pramana_particular::PramanaParticular;
+pub use pramana_role::PramanaRole;
 
 /// Mathematical alias for [`Gint`] (the ring **Z**\[i\]).
 pub type Zi = Gint;
