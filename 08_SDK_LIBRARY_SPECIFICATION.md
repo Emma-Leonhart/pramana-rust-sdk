@@ -99,6 +99,8 @@ alice.computed_age()  // Still returns the computed value
 
 The `GaussianRational` type is the single most important type that every Pramana SDK must implement. It represents the `num:` pseudo-class: a complex number `a/b + (c/d)i` with exact arbitrary-precision rational arithmetic.
 
+> **Naming convention:** The standard short name for a Gaussian rational is **`Gauss`**. When referring specifically to a Gaussian integer (where both denominators are 1), the standard short name is **`Gint`**. Implementations may use these as their primary type/class names (e.g. the C# SDK uses `Gauss` as the struct name). Throughout this specification, `GaussianRational` is used as the descriptive name, but `Gauss` and `Gint` are the canonical short forms.
+
 ### 2.1 Storage Format
 
 Four integer components: `(A, B, C, D)` representing `A/B + (C/D)i`
