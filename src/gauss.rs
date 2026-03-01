@@ -188,7 +188,12 @@ impl Gauss {
 
     /// The four units of **Q**\[i\]: `[1, -1, i, -i]`.
     pub fn units() -> [Self; 4] {
-        [Self::one(), Self::minus_one(), Self::i(), Self::new(0, 1, -1, 1)]
+        [
+            Self::one(),
+            Self::minus_one(),
+            Self::i(),
+            Self::new(0, 1, -1, 1),
+        ]
     }
 
     /// Random Gaussian rational in a range.
@@ -333,12 +338,22 @@ impl Gauss {
 
     /// Real part as a Gaussian rational (imaginary = 0).
     pub fn real_part(&self) -> Self {
-        Self::from_bigints(self.a.clone(), self.b.clone(), BigInt::zero(), BigInt::one())
+        Self::from_bigints(
+            self.a.clone(),
+            self.b.clone(),
+            BigInt::zero(),
+            BigInt::one(),
+        )
     }
 
     /// Imaginary coefficient as a Gaussian rational (imaginary = 0).
     pub fn imaginary_part(&self) -> Self {
-        Self::from_bigints(self.c.clone(), self.d.clone(), BigInt::zero(), BigInt::one())
+        Self::from_bigints(
+            self.c.clone(),
+            self.d.clone(),
+            BigInt::zero(),
+            BigInt::one(),
+        )
     }
 
     /// Reciprocal `1/z`, using `conjugate / |z|²`.
@@ -415,7 +430,12 @@ impl Add for Gauss {
     fn add(self, rhs: Self) -> Self {
         let (ra, rb) = add_frac(&self.a, &self.b, &rhs.a, &rhs.b);
         let (rc, rd) = add_frac(&self.c, &self.d, &rhs.c, &rhs.d);
-        Self { a: ra, b: rb, c: rc, d: rd }
+        Self {
+            a: ra,
+            b: rb,
+            c: rc,
+            d: rd,
+        }
     }
 }
 
@@ -424,7 +444,12 @@ impl Add for &Gauss {
     fn add(self, rhs: Self) -> Gauss {
         let (ra, rb) = add_frac(&self.a, &self.b, &rhs.a, &rhs.b);
         let (rc, rd) = add_frac(&self.c, &self.d, &rhs.c, &rhs.d);
-        Gauss { a: ra, b: rb, c: rc, d: rd }
+        Gauss {
+            a: ra,
+            b: rb,
+            c: rc,
+            d: rd,
+        }
     }
 }
 
@@ -433,7 +458,12 @@ impl Sub for Gauss {
     fn sub(self, rhs: Self) -> Self {
         let (ra, rb) = sub_frac(&self.a, &self.b, &rhs.a, &rhs.b);
         let (rc, rd) = sub_frac(&self.c, &self.d, &rhs.c, &rhs.d);
-        Self { a: ra, b: rb, c: rc, d: rd }
+        Self {
+            a: ra,
+            b: rb,
+            c: rc,
+            d: rd,
+        }
     }
 }
 
@@ -442,7 +472,12 @@ impl Sub for &Gauss {
     fn sub(self, rhs: Self) -> Gauss {
         let (ra, rb) = sub_frac(&self.a, &self.b, &rhs.a, &rhs.b);
         let (rc, rd) = sub_frac(&self.c, &self.d, &rhs.c, &rhs.d);
-        Gauss { a: ra, b: rb, c: rc, d: rd }
+        Gauss {
+            a: ra,
+            b: rb,
+            c: rc,
+            d: rd,
+        }
     }
 }
 
@@ -460,7 +495,12 @@ impl Mul for Gauss {
         let (ra, rb) = sub_frac(&ae_n, &ae_d, &cg_n, &cg_d);
         let (rc, rd) = add_frac(&ag_n, &ag_d, &ce_n, &ce_d);
 
-        Self { a: ra, b: rb, c: rc, d: rd }
+        Self {
+            a: ra,
+            b: rb,
+            c: rc,
+            d: rd,
+        }
     }
 }
 
@@ -471,6 +511,7 @@ impl Mul for &Gauss {
     }
 }
 
+#[allow(clippy::suspicious_arithmetic_impl)]
 impl Div for Gauss {
     type Output = Self;
     fn div(self, rhs: Self) -> Self {
@@ -484,7 +525,12 @@ impl Div for Gauss {
         // mag_sq is purely real: a/b + 0i
         let (ra, rb) = div_frac(&numerator.a, &numerator.b, &mag_sq.a, &mag_sq.b);
         let (rc, rd) = div_frac(&numerator.c, &numerator.d, &mag_sq.a, &mag_sq.b);
-        Self { a: ra, b: rb, c: rc, d: rd }
+        Self {
+            a: ra,
+            b: rb,
+            c: rc,
+            d: rd,
+        }
     }
 }
 
@@ -565,7 +611,12 @@ impl Gauss {
     /// returns the exact magnitude squared.
     pub fn abs(value: &Self) -> Self {
         if value.is_real() {
-            Self::from_bigints(value.a.abs(), value.b.clone(), BigInt::zero(), BigInt::one())
+            Self::from_bigints(
+                value.a.abs(),
+                value.b.clone(),
+                BigInt::zero(),
+                BigInt::one(),
+            )
         } else {
             value.magnitude_squared()
         }
@@ -611,12 +662,20 @@ impl Gauss {
 
     /// Minimum by real part, then imaginary.
     pub fn min(a: &Self, b: &Self) -> Self {
-        if a <= b { a.clone() } else { b.clone() }
+        if a <= b {
+            a.clone()
+        } else {
+            b.clone()
+        }
     }
 
     /// Maximum by real part, then imaginary.
     pub fn max(a: &Self, b: &Self) -> Self {
-        if a >= b { a.clone() } else { b.clone() }
+        if a >= b {
+            a.clone()
+        } else {
+            b.clone()
+        }
     }
 
     /// Clamp a value between min and max.
@@ -651,21 +710,18 @@ impl Eq for Gauss {}
 
 impl PartialOrd for Gauss {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        // Compare by real part first (cross-multiply), then imaginary
-        let real_cmp = (&self.a * &other.b).cmp(&(&other.a * &self.b));
-        match real_cmp {
-            Ordering::Equal => {
-                let imag_cmp = (&self.c * &other.d).cmp(&(&other.c * &self.d));
-                Some(imag_cmp)
-            }
-            ord => Some(ord),
-        }
+        Some(self.cmp(other))
     }
 }
 
 impl Ord for Gauss {
     fn cmp(&self, other: &Self) -> Ordering {
-        self.partial_cmp(other).unwrap()
+        // Compare by real part first (cross-multiply to avoid division), then imaginary
+        let real_cmp = (&self.a * &other.b).cmp(&(&other.a * &self.b));
+        match real_cmp {
+            Ordering::Equal => (&self.c * &other.d).cmp(&(&other.c * &self.d)),
+            ord => ord,
+        }
     }
 }
 
@@ -849,7 +905,8 @@ impl TryFrom<&Gauss> for i64 {
         if !g.is_integer() {
             return Err(PramanaError::NotInteger);
         }
-        g.a.clone().try_into()
+        g.a.clone()
+            .try_into()
             .map_err(|_| PramanaError::Overflow("value too large for i64".into()))
     }
 }

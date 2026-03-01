@@ -1,6 +1,6 @@
 use num_bigint::BigInt;
 use num_traits::Zero;
-use pramana_sdk::{Gauss, Gint, Qi, Zi, is_prime};
+use pramana_sdk::{is_prime, Gauss, Gint, Qi, Zi};
 
 // ── Gint tests ─────────────────────────────────────────────────
 
@@ -54,8 +54,8 @@ fn gint_conjugate_and_norm() {
 #[test]
 fn gint_power() {
     let i = Gint::i();
-    assert_eq!(i.pow(2), Gint::new(-1, 0));  // i² = -1
-    assert_eq!(i.pow(4), Gint::new(1, 0));   // i⁴ = 1
+    assert_eq!(i.pow(2), Gint::new(-1, 0)); // i² = -1
+    assert_eq!(i.pow(4), Gint::new(1, 0)); // i⁴ = 1
 }
 
 #[test]
