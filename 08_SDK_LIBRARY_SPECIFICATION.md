@@ -385,7 +385,7 @@ The SDK must support loading Pramana data from multiple sources:
 |--------|----------|-------|
 | `.pra` file (JSON) | HIGH | Direct file read; the canonical format |
 | GraphDB SPARQL endpoint | HIGH | HTTP queries to `localhost:7200` or remote |
-| Pramana REST API | MEDIUM | FastAPI endpoints on `pramana-data.ca` |
+| Pramana REST API | MEDIUM | FastAPI endpoints on `pramana.dev` |
 | SQLite export | LOW | Read from `pramana_export.db` |
 | MongoDB export | LOW | Read from MongoDB collection |
 
@@ -393,7 +393,7 @@ The SDK must support loading Pramana data from multiple sources:
 # Python — multiple data sources
 graph = PramanaGraph.from_file("foundation.pra")
 graph = PramanaGraph.from_sparql("http://localhost:7200/repositories/pramana")
-graph = PramanaGraph.from_api("https://pramana-data.ca")
+graph = PramanaGraph.from_api("https://pramana.dev")
 ```
 
 ---

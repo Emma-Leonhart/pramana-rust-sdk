@@ -17,7 +17,7 @@ pub fn pramana_label(key: &str) -> String {
 
 /// Build the Pramana entity URL from a UUID.
 pub fn pramana_url(id: &Uuid) -> String {
-    format!("https://pramana-data.ca/entity/{id}")
+    format!("https://pramana.dev/entity/{id}")
 }
 
 #[cfg(test)]

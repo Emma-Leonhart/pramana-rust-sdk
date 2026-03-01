@@ -1,6 +1,6 @@
 # pramana-rust-sdk
 
-Rust SDK for the [Pramana](https://pramana-data.ca) knowledge graph. Provides exact-arithmetic value types, item model mapping, and data source connectors for working with Pramana data in Rust.
+Rust SDK for the [Pramana](https://pramana.dev) knowledge graph. Provides exact-arithmetic value types, item model mapping, and data source connectors for working with Pramana data in Rust.
 
 > **Note:** Unlike the other Pramana SDKs, this one is being developed as a learning project — Rust is a language the maintainer is exploring for the first time through vibecoding. Contributions, corrections, and idiomatic Rust suggestions are very welcome!
 
