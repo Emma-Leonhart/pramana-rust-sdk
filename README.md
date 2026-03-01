@@ -66,7 +66,7 @@ The Gauss and Gint implementations across all Pramana SDKs were heavily inspired
 |----------|-----------|---------|
 | C# / .NET | [pramana-dotnet-sdk](https://github.com/Emma-Leonhart/pramana-dotnet-sdk) | `Pramana.SDK` (NuGet) |
 | Python | [pramana-python-sdk](https://github.com/Emma-Leonhart/pramana-python-sdk) | `pramana-sdk` (PyPI) |
-| npm (TypeScript or JavaScript) | [pramana-npm-sdk](https://github.com/Emma-Leonhart/pramana-ts-sdk) | `@pramana/sdk` (npm) |
+| TypeScript / JavaScript | [pramana-npm-sdk](https://github.com/Emma-Leonhart/pramana-ts-sdk) | `@pramana/sdk` (npm) |
 | Java | [pramana-java-sdk](https://github.com/Emma-Leonhart/pramana-java-sdk) | `org.pramana:pramana-sdk` (Maven) |
 | Rust | **pramana-rust-sdk** (this repo) | `pramana-sdk` (crates.io) |
 | Go | [pramana-go-sdk](https://github.com/Emma-Leonhart/pramana-go-sdk) | `github.com/Emma-Leonhart/pramana-go-sdk` |
