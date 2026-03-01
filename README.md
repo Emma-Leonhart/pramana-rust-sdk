@@ -2,37 +2,53 @@
 
 Rust SDK for the [Pramana](https://pramana-data.ca) knowledge graph. Provides exact-arithmetic value types, item model mapping, and data source connectors for working with Pramana data in Rust.
 
+> **Note:** Unlike the other Pramana SDKs, this one is being developed as a learning project — Rust is a language the maintainer is exploring for the first time through vibecoding. Contributions, corrections, and idiomatic Rust suggestions are very welcome!
+
 ## Status
 
-**Pre-implementation** - Project structure and implementation plan documented. See [IMPLEMENTATION.md](IMPLEMENTATION.md) for the full design.
+**Phase 1 implemented** — Core Gaussian rational and Gaussian integer arithmetic with deterministic Pramana UUID v5 identity.
 
-## Key Features (Planned)
+## Key Features
 
-- **GaussianRational** (standard short name: **Gauss**; Gaussian integers: **Gint**) - Exact complex rational arithmetic (`a/b + (c/d)i`) with `num::BigInt`
-- **Deterministic Pramana IDs** - UUID v5 generation matching the canonical Pramana web app
-- **Full operator overloading** - `+`, `-`, `*`, `/`, `%` via `std::ops` traits
-- **Correct partial ordering** - `PartialOrd` without `Ord` for complex numbers
-- **Derive macros** - `#[derive(PramanaEntity)]` for ORM-style mapping
-- **Feature-gated dependencies** - SPARQL, REST API, SQLite are opt-in
-- **Serde integration** - Serialize/deserialize Pramana types to/from JSON
+- **Gauss** — Exact Gaussian rational arithmetic (`A/B + (C/D)i`) with arbitrary-precision `BigInt` components
+- **Gint** — Gaussian integers (`Z[i]`), a subset of Gauss with integer-only components
+- **Deterministic Pramana IDs** — UUID v5 generation matching the canonical Pramana web app
+- **Full operator overloading** — `+`, `-`, `*`, `/`, `%` via `std::ops` traits
+- **Number theory** — GCD, extended GCD, Gaussian primality testing, modular congruence
+- **Serde integration** — Serialize/deserialize Pramana types to/from JSON
+- **Parsing** — Parse from canonical `"A,B,C,D"` and `"pra:num:A,B,C,D"` formats
+- **Multiple display formats** — Human-readable, raw vector, improper fraction, mixed number, decimal
 
-## Installation (Future)
+## Installation
 
 ```toml
 [dependencies]
 pramana-sdk = "0.1"
 ```
 
-## Quick Example (Planned API)
+## Quick Example
 
 ```rust
-use pramana_sdk::GaussianRational;
+use pramana_sdk::{Gauss, Gint};
 
-let half = GaussianRational::from_i64(1, 2, 0, 1)?;   // 1/2
-let third = GaussianRational::from_i64(1, 3, 0, 1)?;  // 1/3
-let result = &half + &third;                             // 5/6
+// Gaussian integer: 3 + 4i
+let z = Gint::new(3, 4);
+println!("{}", z);                  // "3 + 4i"
+println!("{}", z.pramana_id());     // deterministic UUID v5
 
-println!("{}", result.pramana_id());  // deterministic UUID v5
+// Gaussian rational: 1/2 + 3/4 i
+let w = Gauss::new(1, 2, 3, 4);
+println!("{}", w);                  // "1/2 + 3/4i"
+println!("{}", w.to_raw_string());  // "<1,2,3,4>"
+
+// Arithmetic
+let sum = Gauss::from_ints(1, 1) + Gauss::from_ints(2, 3);
+println!("{}", sum);                // "3 + 4i"
+
+// Division is exact
+let a = Gauss::from_ints(2, 2);
+let b = Gauss::from_ints(1, 1);
+println!("{}", a / b);              // "2"
 ```
 
 ## Documentation

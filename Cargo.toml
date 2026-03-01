@@ -1,0 +1,29 @@
+[package]
+name = "pramana-sdk"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.70"
+description = "Pramana knowledge graph SDK — exact Gaussian rational arithmetic and deterministic UUID v5 identity"
+license = "MIT"
+keywords = ["pramana", "gaussian", "number-theory", "knowledge-graph", "sdk"]
+categories = ["mathematics", "science"]
+
+[dependencies]
+num = "0.4"
+num-bigint = { version = "0.4", features = ["serde"] }
+num-rational = "0.4"
+num-traits = "0.2"
+num-integer = "0.1"
+uuid = { version = "1", features = ["v5", "serde"] }
+sha1 = "0.10"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+rand = "0.8"
+
+[dev-dependencies]
+criterion = "0.5"
+
+[[bench]]
+name = "gauss_bench"
+harness = false
